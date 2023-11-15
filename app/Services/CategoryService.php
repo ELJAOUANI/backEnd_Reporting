@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 class CategoryService
 {
 
-    static function index()
+    static function show()
     {
         try {
             $categories = Category::all();

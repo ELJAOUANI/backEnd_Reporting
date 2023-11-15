@@ -18,7 +18,6 @@ class CreateItemsTable extends Migration
             $table->string("item_name");
             $table->string("item_code");
             $table->string("unite");
-            $table->string("price");
             $table->string("quantity");
             $table->double("price_unit");
             $table->string("type")->default('neweracom');

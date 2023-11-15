@@ -20,8 +20,11 @@ class CreateReportsTable extends Migration
             $table->string('type_of_operation');
             $table->string('address');
             $table->foreignId('city_id')->constrained('cities')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('state');
+            $table->string('secteur');
             $table->foreignId('technicien_id')->constrained('techniciens')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('date_of_operation');
+            $table->string('sr')->nullable();
+            $table->string('order_number')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

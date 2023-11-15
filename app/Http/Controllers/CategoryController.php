@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Category;
 use App\Services\CategoryService;
 
 class CategoryController extends Controller
 {
-    public function index(){
-        return CategoryService::index();
+    public function show(){
+        return CategoryService::show();
     }
 
     public function store(Request $request)
