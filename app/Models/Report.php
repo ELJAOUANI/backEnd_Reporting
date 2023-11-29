@@ -28,4 +28,9 @@ class Report extends Model
     {
         return $this->belongsToMany(Items::class,'report_items','report_id','item_id')->withPivot('quantity');
     }
+
+    public function technicien()
+    {
+        return $this->belongsTo(Technicien::class);
+    }
 }

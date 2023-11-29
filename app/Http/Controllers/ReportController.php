@@ -36,4 +36,8 @@ class ReportController extends Controller
     {
         return ReportService::destroy($id);
     }
+    public function get($id)
+    {
+        return ReportService::get($id);
+    }
 }

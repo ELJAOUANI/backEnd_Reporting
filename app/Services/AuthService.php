@@ -41,6 +41,7 @@ class AuthService
         try {
             DB::beginTransaction();
             Role::firstOrCreate(['name' => 'BackOffice', 'guard_name' => 'api']);
+            Role::firstOrCreate(['name' => 'Admin', 'guard_name' => 'api']);
 
             $request->validate([
                 'email' => 'required|email|unique:users',
