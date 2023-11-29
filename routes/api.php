@@ -6,17 +6,11 @@ use App\Http\Controllers\CityController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\TechnicienController;
-
-Route::get('/test', function () {
-    return response()->json('Hello world');
-});
 
 Route::prefix('auth')->group(function () {
     Route::post('login', [AuthController::class, 'login']);
     Route::post('register', [AuthController::class, 'register']);
 });
-
 
 Route::prefix('category')->group(function () {
     Route::get('show', [CategoryController::class, 'show']);
@@ -36,7 +30,6 @@ Route::prefix('items')->group(function () {
     Route::delete('destroy/{id}', [ItemController::class, 'destroy']);
 });
 
-
 Route::prefix('reports')->group(function () {
     Route::get('show', [ReportController::class, 'show']);
     Route::post('store', [ReportController::class, 'store']);
@@ -47,22 +40,10 @@ Route::prefix('reports')->group(function () {
     Route::get('get/{id}', [ReportController::class, 'get']);
 });
 
-
 Route::prefix('cities')->group(function () {
     Route::post('store', [CityController::class, 'store']);
     Route::get('show', [CityController::class, 'show']);
     Route::get('get/{id}', [CityController::class, 'get']);
     Route::put('update/{id}', [CityController::class, 'update']);
     Route::delete('delete/{id}', [CityController::class, 'delete']);
-});
-
-
-Route::prefix('techniciens')->group(function () {
-    Route::post('store', [TechnicienController::class, 'store']);
-    Route::get('show', [TechnicienController::class, 'show']);
-    Route::get('get/{id}', [TechnicienController::class, 'get']);
-    Route::put('update/{id}', [TechnicienController::class, 'update']);
-    Route::delete('delete/{id}', [TechnicienController::class, 'delete']);
-    Route::delete('destroy/{id}', [TechnicienController::class, 'destroy']);
-    Route::post('restore/{id}', [TechnicienController::class, 'restore']);
 });

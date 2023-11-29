@@ -9,11 +9,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Technicien extends Model
 {
     use HasFactory , SoftDeletes;
+
     protected $fillable = [
         'name',
         'email',
         'city_id',
     ];
+
+    public function reports()
+    {
+        return $this->hasMany(Report::class);
+    }
 
     public function city()
     {
