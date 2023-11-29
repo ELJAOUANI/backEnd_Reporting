@@ -8,4 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class Technicien extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'email',
+        'city_id',
+    ];
+
+    public function reports()
+    {
+        return $this->hasMany(Report::class);
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
 }
