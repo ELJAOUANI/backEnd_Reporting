@@ -8,16 +8,24 @@ use Illuminate\Support\Str;
 class TechniciensService
 {
 
+
+
     static function show()
     {
         try {
-            $techniciens = Technicien::with("city")->get();
-
-            return response()->json(['techniciens' => $techniciens], 200);
+            $techniciens = Technicien::withCount('reports')->with('city')
+            ->orderBy('id', 'desc') // Order by ID in descending order
+            ->get();
+            return response()->json([
+                'listOfTechniciens' => $techniciens,
+                'count' => $techniciens->count()
+            ], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
+
 
 
     static function store($request)
@@ -34,6 +42,9 @@ class TechniciensService
                 'email' => $request->email,
                 'city_id' => $request->city_id
             ]);
+
+            $techniciens->load('city');
+            $techniciens->refresh();
 
             return response()->json(['techniciens' => $techniciens], 200);
         } catch (\Exception $e) {

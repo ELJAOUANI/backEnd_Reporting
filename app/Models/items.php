@@ -14,7 +14,6 @@ class items extends Model
         'item_name',
         'item_code',
         'unite',
-        'price',
         'quantity',
         'price_unit',
         'type',

@@ -10,9 +10,12 @@ class ItemService
     static function show()
     {
         try {
-            $items = items::all();
-
-            return response()->json(['items' => $items], 200);
+            $items = items::with('category')->get();
+            $count = items::count();
+            return response()->json([
+                'items' => $items,
+                'count' => $count
+            ], 200);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
@@ -22,22 +25,25 @@ class ItemService
     {
         try {
             $request->validate([
-                'name' => 'required|string',
-                'code' => 'required|string',
+                'item_name' => 'required|string',
+                'item_code' => 'required|string',
                 'unite' => 'required|string',
                 'quantity' => 'required|numeric',
                 'price_unit' => 'required|numeric',
-                'category_id' => 'required|numeric',
+                'type' => 'required|string',
+                'category' => 'required|numeric',
+                // 'price' => 'required|numeric',
             ]);
 
             $item = items::create([
-                'item_name' => Str::title($request->name),
-                'item_code' => Str::upper($request->code),
+                'item_name' => Str::title($request->item_name),
+                'item_code' => Str::upper($request->item_code),
                 'unite' => Str::upper($request->unite),
                 'quantity' => $request->quantity,
                 'price_unit' => $request->price_unit,
                 'type' => $request->type ? $request->type : 'neweracom',
-                'category_id' => $request->category_id,
+                'category_id' => $request->category,
+                // 'price' => $request->price,
             ]);
 
             return response()->json(['item' => $item], 200);
@@ -54,13 +60,13 @@ class ItemService
             $item = items::findOrFail($id);
 
             $item->update([
-                'item_name' => $request->name ? Str::title($request->name) : $item->item_name,
-                'item_code' => $request->code ? Str::upper($request->code) : $item->item_code,
+                'item_name' => $request->item_name ? Str::title($request->item_name) : $item->item_name,
+                'item_code' => $request->item_code ? Str::upper($request->item_code) : $item->item_code,
                 'unite' => $request->unite ? Str::upper($request->unite) : $item->unite,
                 'quantity' => $request->quantity ? $request->quantity : $item->quantity,
                 'price_unit' => $request->price_unit ? $request->price_unit : $item->price_unit,
                 'type' => $request->type ? $request->type : $item->type,
-                'category_id' => $request->category_id ? $request->category_id : $item->category_id,
+                'category' => $request->category ? $request->category : $item->category,
             ]);
 
             $item->refresh();

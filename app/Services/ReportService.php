@@ -12,8 +12,12 @@ class ReportService
     static function show()
     {
         try {
-            $reports = Report::with('items' , 'technicien')->get();
-            return response()->json(['reports' => $reports], 200);
+            $reports = Report::with('items' , 'technicien','city')->get();
+            $count = Report::count();
+            return response()->json([
+                'reports' => $reports ,
+                'count' => $count  
+            ], 200);
            
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
@@ -23,6 +27,8 @@ class ReportService
     static function store($request)
     {
         try {
+
+            
             DB::beginTransaction();
             $request->validate([
                 'serie_number' => 'required|string',

@@ -33,4 +33,9 @@ class Report extends Model
     {
         return $this->belongsTo(Technicien::class);
     }
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+
 }
